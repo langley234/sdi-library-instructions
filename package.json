@@ -1,6 +1,6 @@
 {
   "name": "sdi-library-instructions",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
@@ -34,5 +34,23 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/langley234/sdi-library-instructions.git"
+  },
+  "keywords": [
+    "sdi",
+    "library",
+    "instructions"
+  ],
+  "author": "Mike Langenbach",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/langley234/sdi-library-instructions/issues"
+  },
+  "homepage": "https://github.com/langley234/sdi-library-instructions#readme"
 }
