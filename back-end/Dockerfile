@@ -1,3 +1,0 @@
-FROM postgres
-ENV POSTGRES_PASSWORD docker
-ENV POSTGRES_DB docker_checkpoint_database
