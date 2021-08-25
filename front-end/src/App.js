@@ -20,6 +20,7 @@ class App extends React.Component {
   }
 
   handleBookClick = (bookData) => {
+    console.log(bookData);
     this.setState({
       bookData: bookData
     })
@@ -30,7 +31,7 @@ class App extends React.Component {
       <Router>
         <Navbar />
         <Switch>
-          <Route path="/api/books/:bookID">
+          <Route path="/books/:bookID">
             <Book data={this.state.bookData}/>
           </Route>  
           <Route path="/">

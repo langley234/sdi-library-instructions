@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -68,7 +70,9 @@ class Home extends React.Component {
                 <ul>
                     {
                         this.state.bookData.map((item) => {
-                            return <li>{`Title : ${item.title} Author : ${item.author} ISBN # ${item.isbn} Checked-Out? : ${item.checked_out}`}</li>
+                            return <Link to={`/books/${item.id}`} onClick={() => { this.props.handleBookClick(item) }}>
+                                <li>{`Title : ${item.title} Author : ${item.author} ISBN # ${item.isbn} Checked-Out? : ${item['checked-in']}`}</li>
+                            </Link>
                         })
                     }
                 </ul>

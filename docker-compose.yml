@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  back-end-server:
+    container_name: api 
+    build: back-end/
+    depends_on:
+      - 'database'
+    volumes:
+      - './:/src/app sdi-library-instructions_back-end-server'
+    ports: 
+      - '3001:3001'
+
+  front-end-server:
+    container_name: react
+    build: front-end/
+    depends_on:
+      - 'database'
+    ports:
+      - '3000:3000'
+
+  database:
+    container_name: pg-database
+    build: back-end/postgres-db/
+    ports:
+      - '5432:5432'

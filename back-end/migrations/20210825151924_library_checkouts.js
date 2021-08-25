@@ -1,4 +1,5 @@
 exports.up = function(knex) {
+  console.log('RUNNING MIGRATION');
     return knex.schema.createTable('library_checkouts', table => {
        table.increments('id');
        table.string('user-name');

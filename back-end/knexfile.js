@@ -3,8 +3,9 @@
 module.exports = {
 
   development: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
+      host : 'pg-database',
       database: 'library',
       user:     'postgres',
       password: 'docker'
