@@ -68,10 +68,14 @@ class Home extends React.Component {
                 <ul>
                     {
                         this.state.bookData.map((item) => {
-                            return <li>{`Title : ${item.title} Author : ${item.author} ISBN # ${item.isbn} Checked-Out? : ${item.checked-out}`}</li>
+                            return <li>{`Title : ${item.title} Author : ${item.author} ISBN # ${item.isbn} Checked-Out? : ${item.checked_out}`}</li>
                         })
                     }
                 </ul>
+            );
+        } else {
+            return (
+                <div>Loading...</div>
             );
         }
 
