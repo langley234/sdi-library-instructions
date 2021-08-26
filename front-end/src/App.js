@@ -3,24 +3,30 @@ import React from 'react';
 import { 
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Book from './components/Book';
+import Login from './components/Login';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      bookData : null
+      bookData : null,
+      appData: {loggedIn: false, currentUserID: -1, history: this.props.history}
     }
   }
 
+  handleLogin = (id) => {
+    this.setState({
+      appData: {loggedIn: true, currentUserID: id}
+    })
+  }
+
   handleBookClick = (bookData) => {
-    console.log(bookData);
     this.setState({
       bookData: bookData
     })
@@ -32,8 +38,11 @@ class App extends React.Component {
         <Navbar />
         <Switch>
           <Route path="/books/:bookID">
-            <Book data={this.state.bookData}/>
+            <Book history={this.props.history} appData={this.state.appData} bookData={this.state.bookData}/>
           </Route>  
+          <Route path="/login">
+            <Login history={this.props.history}/>
+          </Route>
           <Route path="/">
             <Home handleBookClick={this.handleBookClick}/>
           </Route>

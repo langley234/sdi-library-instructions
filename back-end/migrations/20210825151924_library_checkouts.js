@@ -1,10 +1,11 @@
 exports.up = function(knex) {
-  console.log('RUNNING MIGRATION');
+  console.log('Creating table library_checkouts')
     return knex.schema.createTable('library_checkouts', table => {
-       table.increments('id');
-       table.string('user-name');
-       table.date('checkout-date')
-       table.string('checked-out-book')
+       table.increments('checkout_id');
+       table.integer('user_id');
+       table.integer('book_id');
+       table.string('check_out_date');
+       table.string('check_in_date');
     })
    };
    

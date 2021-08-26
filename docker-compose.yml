@@ -7,7 +7,7 @@ services:
     depends_on:
       - 'database'
     volumes:
-      - './:/src/app sdi-library-instructions_back-end-server'
+      - /src/app 
     ports: 
       - '3001:3001'
 

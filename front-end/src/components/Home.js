@@ -70,8 +70,8 @@ class Home extends React.Component {
                 <ul>
                     {
                         this.state.bookData.map((item) => {
-                            return <Link to={`/books/${item.id}`} onClick={() => { this.props.handleBookClick(item) }}>
-                                <li>{`Title : ${item.title} Author : ${item.author} ISBN # ${item.isbn} Checked-Out? : ${item['checked-in']}`}</li>
+                            return <Link to={`/books/${item.book_id}`} onClick={() => { this.props.handleBookClick(item) }}>
+                                <li>{`Title : ${item.book_title} Author : ${item.book_author}`}</li>
                             </Link>
                         })
                     }
