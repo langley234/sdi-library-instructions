@@ -1,8 +1,8 @@
 const PORT = process.env.PORT || 3001;
 let conn = {
     host : '127.0.0.1',
-    //host : 'pg-database',
-    port : '5432',
+    host : 'pg-database',
+    //port : '5432',
     user : 'postgres',
     password : 'docker'
 }
@@ -12,7 +12,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 
-//console.log(app);
 var knex = require('knex')({ client: 'pg', connection: conn });
 
 conn.database = 'library';
@@ -56,6 +55,7 @@ app.post('/login', (req, res) => {
   }
 });
 
+
 app.post('/login/create-account', (req, res) => {
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
@@ -70,21 +70,13 @@ app.post('/login/create-account', (req, res) => {
   } else {
     knex.raw(`SELECT * FROM library_users WHERE username = '${username}'`)
       .then((result) => {
-        console.log(result);
         if (result.rows.length !== 0) {
           res.status(409).send(`Username Already Exists`);
         } else {
           knex.raw(`INSERT INTO library_users (first_name, last_name, username, password) VALUES ('${firstName}', '${lastName}', '${username}', '${password}')`)
             .then((result) => {
               if (result.rowCount === 1) {
-                knex.raw(`SELECT * FROM library_users WHERE username = '${username}'`)
-                  .then((result) => {
-                    if (result.rows.length < 1) {
-                      res.status(404).send(`Could not retrieve created user`);
-                    } else {
-                      res.status(201).json(result.rows);
-                    }
-                  })
+                res.status(201).json(result.rows);
               } else {
                 res.status(418).send(`Error Adding Account to Database`);
               }

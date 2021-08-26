@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "NODE_ENV=test jest",
-    "start": "npx knex migrate:rollback && npx knex migrate:latest && npx knex seed:run && node app.js",
+    "start": "npx knex migrate:rollback && npx knex migrate:latest && npx knex seed:run && nodemon app.js",
     "init": "npx knex migrate:rollback && npx knex migrate:latest && npx knex seed:run"
   },
   "keywords": [],
@@ -17,6 +17,7 @@
     "express": "^4.17.1",
     "jest": "^27.0.6",
     "knex": "^0.95.10",
+    "nodemon": "^2.0.12",
     "pg": "^8.7.1",
     "react": "^17.0.2",
     "supertest": "^6.1.6"

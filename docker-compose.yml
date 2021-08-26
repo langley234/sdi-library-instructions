@@ -7,7 +7,7 @@ services:
     depends_on:
       - 'database'
     volumes:
-      - /src/app 
+      - ./back-end:/src/app 
     ports: 
       - '3001:3001'
 
@@ -16,6 +16,8 @@ services:
     build: front-end/
     depends_on:
       - 'database'
+    volumes:
+      - ./front-end:/src/app
     ports:
       - '3000:3000'
 

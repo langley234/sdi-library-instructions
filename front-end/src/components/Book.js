@@ -18,6 +18,7 @@ class Book extends React.Component {
             data: null,
             id: bookID,
             appData: this.props.appData,
+            rerender: false,
             error: {status: false, message: 'No Error'}
         }
     }
@@ -38,9 +39,9 @@ class Book extends React.Component {
         return idInt;
     }
 
-    componentDidMount() {
+    fetchBookData = () => {
         const headers = { 'Content-Type' : 'application/json' };
- 
+
         fetch(`http://localhost:3001/api/books/${this.state.id}`, {
             method: 'GET',
             mode: 'cors',
@@ -48,38 +49,42 @@ class Book extends React.Component {
         })
             .then((result) => {
                 if (result.status === 200) {
-                   result = result.json()
-                        .then( (result) => {
+                    result = result.json()
+                        .then((result) => {
                             this.setState({
                                 isLoaded: true,
                                 data: result
                             });
-                        })                    
+                        })
                 }
                 else if (result.status === 400) {
                     this.setState({
                         isLoaded: true,
-                        error: {status: true, message: `Invalid ID`}
+                        error: { status: true, message: `Invalid ID` }
                     })
                 }
                 else if (result.status === 404) {
                     this.setState({
                         isLoaded: true,
-                        error: {status: true, message: `No Book with that ID exists`}
+                        error: { status: true, message: `No Book with that ID exists` }
                     })
                 } else {
                     this.setState({
                         isLoaded: true,
-                        error: {status: true, message: `Unknown Error Occurred`}
+                        error: { status: true, message: `Unknown Error Occurred` }
                     })
                 }
             },
-            (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error: {status: true, message: error}
-                })
-            });
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error: { status: true, message: error }
+                    })
+                });
+    }
+
+    componentDidMount() { 
+        this.fetchBookData();
     }
 
     translateCheckedInStatus = (booler) => {
@@ -88,17 +93,49 @@ class Book extends React.Component {
     }
 
     renderCheckedOutData = () => {
-        return (
-            <ul>
-                <li>{`Available On : ${this.state.data.check_in_date}`}</li>
-                <li>{`Currently Checked Out By User : ${this.state.data.user_id}`}</li>
-            </ul>
-        );
+        if (this.state.appData.loggedIn === true) {
+            return (
+                <ul>
+                    {
+                        this.state.appData.userData.user_id == this.state.data.user_id ?
+                            <li>{`Checked out by you. Please Return by ${this.state.data.check_in_date} `}</li> :
+                            <li>{`Currently Checked Out By User : ${this.state.data.user_id}`}</li>
+                    }
+                </ul>
+            );
+        } else {
+            return (
+                <ul>
+                    <li>{`Available On : ${this.state.data.check_in_date}`}</li>
+                    <li>{`Currently Checked Out By User : ${this.state.data.user_id}`}</li>
+                </ul>
+            );
+        }
     }
 
-    handleCheckout = () => { 
-        this.props.history.push('/login');   
-        this.props.history.go(0); 
+    handleCheckout = () => {
+        if (this.props.appData.loggedIn) {
+            const headers = { 'Content-Type': 'application/json' };
+
+            fetch(`http://localhost:3001/api/books/${this.state.id}/checkout/${this.state.appData.userData.user_id}`, {
+                method: 'POST',
+                mode: 'cors',
+                headers
+            })
+                .then((result) => {
+                    if (result.status === 201) {
+                        this.fetchBookData();
+
+                    }
+                    else if (result.status === 418) {
+                        console.log('418 Error');
+                    }
+                })
+        } else {
+            this.props.history.push('/login');
+            this.props.history.go(0);
+        }
+
     }
 
     render() {

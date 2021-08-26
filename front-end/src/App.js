@@ -17,14 +17,40 @@ class App extends React.Component {
 
     this.state = {
       bookData : null,
-      appData: {loggedIn: false, currentUserID: -1}
+      appData: {loggedIn: false, userData: {}}
     }
   }
 
-  handleLogin = (id) => {
-    this.setState({
-      appData: {loggedIn: true, currentUserID: id}
+  handleLogin = (username, password) => {
+    const headers = { 'Content-Type': 'application/json' };
+
+    fetch(`http://localhost:3001/login`, {
+      method: 'POST',
+      mode: 'cors',
+      headers,
+      body: JSON.stringify({
+        username: username,
+        password: password
+      })
     })
+      .then((result) => {
+        if (result.status === 200) {
+          result = result.json()
+            .then((result) => {
+              alert(`Logged in as User : ${username}`);
+              this.props.history.go(-1);
+              this.setState({
+                appData: { loggedIn: true, userData: result[0] }
+              })
+            })
+        }
+        else if (result.status === 404) {
+          console.log("ERROR GETTING USER DATA");
+        }
+        else if (result.status === 400) {
+          console.log("INVALID DATA");
+        }
+      })
   }
 
   handleBookClick = (bookData) => {
@@ -36,13 +62,13 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <Navbar />
+        <Navbar appData={this.state.appData} history={this.props.history}/>
         <Switch>
           <Route path="/books/:bookID">
             <Book history={this.props.history} appData={this.state.appData} bookData={this.state.bookData}/>
           </Route>  
           <Route path="/login/create-account">
-            <CreateAccount history={this.props.history} appData={this.state.appData}/>
+            <CreateAccount history={this.props.history} appData={this.state.appData} handleLogin={this.handleLogin}/>
           </Route>
           <Route path="/login">
             <Login history={this.props.history} appData={this.state.appData} handleLogin={this.handleLogin}/>

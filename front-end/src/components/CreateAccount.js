@@ -41,8 +41,7 @@ class CreateAccount extends React.Component {
             })
                 .then((result) => {
                     if (result.status === 201) {
-                        console.log(result);
-                        this.props.handleLogin();
+                        this.props.handleLogin(username, password)
                     }
                 })
         }
