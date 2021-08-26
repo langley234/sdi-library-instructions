@@ -19,7 +19,6 @@ exports.seed = function (knex) {
       const returnYear = returnDate.getFullYear();
 
       const dateOutput = `${day}/${month}/${year}`;
-      //const dateOutput = month + '\n' + day + ',' + year;
       const returnDateOutput = `${returnDay}/${returnMonth}/${returnYear}`;
 
       return knex('library_checkouts').insert([

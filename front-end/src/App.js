@@ -9,6 +9,7 @@ import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Book from './components/Book';
 import Login from './components/Login';
+import CreateAccount from './components/CreateAccount';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class App extends React.Component {
 
     this.state = {
       bookData : null,
-      appData: {loggedIn: false, currentUserID: -1, history: this.props.history}
+      appData: {loggedIn: false, currentUserID: -1}
     }
   }
 
@@ -40,8 +41,11 @@ class App extends React.Component {
           <Route path="/books/:bookID">
             <Book history={this.props.history} appData={this.state.appData} bookData={this.state.bookData}/>
           </Route>  
+          <Route path="/login/create-account">
+            <CreateAccount history={this.props.history} appData={this.state.appData}/>
+          </Route>
           <Route path="/login">
-            <Login history={this.props.history}/>
+            <Login history={this.props.history} appData={this.state.appData} handleLogin={this.handleLogin}/>
           </Route>
           <Route path="/">
             <Home handleBookClick={this.handleBookClick}/>

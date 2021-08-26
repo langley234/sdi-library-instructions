@@ -10,7 +10,6 @@ exports.seed = function(knex) {
         {book_title: 'The Bear and the Dragon', book_author: 'Tom Clancy', book_isbn: '039914563X', book_checked_out: false},
         {book_title: 'Ancient Greece', book_author: 'Thomas R. Martin', book_isbn: '780300-084931', book_checked_out: false},
         {book_title: 'Enigma : The Battle for the Code', book_author: 'Hugh Sebag-Montefiore', book_isbn: '978-0-471-49035-7', book_checked_out: false},
-        {book_title: 'Enigma : The Battle for the Code', book_author: 'Hugh Sebag-Montefiore', book_isbn: '978-0-471-49035-7', book_checked_out: false},
         {book_title: `Don't Know Much About the Civil War`, book_author: 'Kenneth C. Davis', book_isbn: '978-0-380-71908-2', book_checked_out: false}
       ]);
     });

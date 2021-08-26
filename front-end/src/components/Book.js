@@ -4,6 +4,7 @@ class Book extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log(this.props);
         let bookID = -1;
 
         if (this.props.bookData === undefined || this.props.bookData === null) {
@@ -16,6 +17,7 @@ class Book extends React.Component {
             isLoaded: false,
             data: null,
             id: bookID,
+            appData: this.props.appData,
             error: {status: false, message: 'No Error'}
         }
     }
